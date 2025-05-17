@@ -5,7 +5,7 @@ import { EditTaskForm, type Task } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import InputError from "@/components/input-error";
 
 export default function Edit({ task }: { task: Task }) {
@@ -42,7 +42,7 @@ export default function Edit({ task }: { task: Task }) {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="is_completed">Completed?</Label>
-                        <Checkbox checked={data.is_completed} onCheckedChange={() => setData('is_completed', !data.is_completed)} />
+                        <Switch checked={data.is_completed} onCheckedChange={() => setData('is_completed', !data.is_completed)} />
 
                         <InputError message={errors.is_completed} />
                     </div>
