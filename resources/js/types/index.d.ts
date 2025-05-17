@@ -34,6 +34,11 @@ export interface CreateTaskForm {
     name: string;
 }
 
+export interface EditTaskForm {
+    name: string;
+    is_completed: boolean;
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
