@@ -44,7 +44,7 @@ export default function Index({tasks}: { tasks: Task[] }){
                                 </TableCell>
                                 <TableCell className="flex flex-row gap-x-2 text-right">
                                     <Link className={buttonVariants({ variant: 'default' })}
-                                        href='{`/rasks/${task.id}/edit}'>
+                                        href={`/tasks/${task.id}/edit`}>
                                             Edit
                                     </Link>
 
