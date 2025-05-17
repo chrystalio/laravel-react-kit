@@ -1,6 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link, router } from '@inertiajs/react';
 import { Button, buttonVariants } from "@/components/ui/button";
+import { TablePagination } from '@/components/table-pagination';
 import { toast } from 'sonner';
 import {
     Table,
@@ -10,7 +11,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { type Task, type BreadcrumbItem } from '@/types';
+import { type Task, type BreadcrumbItem, type PaginatedResponse } from '@/types';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -18,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Tasks', href: '/tasks' }
 ]
 
-export default function Index({tasks}: { tasks: Task[] }){
+export default function Index({tasks}: { tasks: PaginatedResponse<Task> }){
     const deleteTask = (id: number) => {
         if(confirm('Are you sure you want to delete this task?')){
             router.delete(route('tasks.destroy', { id }));
@@ -42,7 +43,7 @@ export default function Index({tasks}: { tasks: Task[] }){
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {tasks.map((task) =>(
+                        {tasks.data.map((task: Task) =>(
                             <TableRow key={task.id}>
                                 <TableCell>{task.name}</TableCell>
                                 <TableCell className={task.is_completed ? 'text-green-600' : 'text-red-700'}>
@@ -62,6 +63,7 @@ export default function Index({tasks}: { tasks: Task[] }){
                         ))}
                     </TableBody>
                 </Table>
+            <TablePagination resource={tasks} />
             </div>
         </AppLayout>
     )
