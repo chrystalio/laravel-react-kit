@@ -10,7 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Task, BreadcrumbItem } from '@/types';
+import { type Task, type BreadcrumbItem } from '@/types';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
