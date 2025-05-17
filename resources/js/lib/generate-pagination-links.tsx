@@ -9,7 +9,6 @@ type PaginationLink = {
 
 export const generatePaginationLinks = (currentPage: number, totalPages: number, path: string,  links: PaginationLink[]) => {
     const pages: JSX.Element[] = [];
-    console.log(links)
     if (totalPages <= 6) {
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
