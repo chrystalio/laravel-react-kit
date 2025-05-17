@@ -1,12 +1,18 @@
 import AppLayout from "@/layouts/app-layout";
 import { Head, useForm } from '@inertiajs/react'
 import { FormEventHandler, useRef } from "react";
-import { EditTaskForm, type Task } from "@/types";
+import { EditTaskForm, type Task, BreadcrumbItem } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import InputError from "@/components/input-error";
+
+const breadcrumbs: BreadcrumbItem[] = [
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Tasks', href: '/tasks' },
+    { title: 'Edit', href: ' ' }
+]
 
 export default function Edit({ task }: { task: Task }) {
     const taskName = useRef<HTMLInputElement>(null);
@@ -31,7 +37,7 @@ export default function Edit({ task }: { task: Task }) {
         });
     };
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit Task" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <form onSubmit={editTask} className="space-y-6">
