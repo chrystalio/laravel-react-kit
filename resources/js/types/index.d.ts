@@ -30,6 +30,10 @@ export interface Task {
     updated_at: string;
 }
 
+export interface CreateTaskForm {
+    name: string;
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
