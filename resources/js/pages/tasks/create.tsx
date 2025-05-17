@@ -4,7 +4,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { CreateTaskForm, BreadcrumbItem } from '@/types';
+import { type CreateTaskForm, type BreadcrumbItem } from '@/types';
 
 import { FormEventHandler, useRef } from 'react';
 
