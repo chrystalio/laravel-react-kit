@@ -43,6 +43,11 @@ export default function Index({tasks}: { tasks: Task[] }){
                                     {task.is_completed ? 'Completed' : 'In Progress'}
                                 </TableCell>
                                 <TableCell className="flex flex-row gap-x-2 text-right">
+                                    <Link className={buttonVariants({ variant: 'default' })}
+                                        href='{`/rasks/${task.id}/edit}'>
+                                            Edit
+                                    </Link>
+
                                     <Button variant={'destructive'} className={'cursor-pointer'} onClick={() => deleteTask(task.id)}>
                                         Delete
                                     </Button>
