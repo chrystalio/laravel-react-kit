@@ -43,6 +43,7 @@ export interface EditTaskForm {
     is_completed: boolean;
     due_date?: string;
     media?: File | null;
+    [key: string]: FormDataConvertible;
 }
 
 export interface SharedData {
