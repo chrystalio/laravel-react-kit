@@ -4,6 +4,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { format } from 'date-fns';
 import { type CreateTaskForm, type BreadcrumbItem } from '@/types';
 
 import { FormEventHandler, useRef } from 'react';
@@ -53,6 +54,17 @@ export default function Create() {
 
                         <InputError message={errors.name} />
                     </div>
+                    <div className="grid-gap-2">
+                        <Label htmlFor="due_date">Due Date</Label>
+
+                        <Input id="due_date" value={data.due_date} onChange={(e) => setData(
+                            'due_date',
+                            format(new Date(e.target.value), 'yyyy-MM-dd'))}
+                            className="mt-1 block w-full" type="date" />
+
+                        <InputError message={errors.due_date} />
+                    </div>
+
                     <div className="flex items-center gap-4">
                         <Button disabled={processing}>Create Task</Button>
                     </div>
