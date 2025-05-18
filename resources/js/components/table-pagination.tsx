@@ -3,6 +3,13 @@ import { generatePaginationLinks } from '@/lib/generate-pagination-links';
 import { type PaginatedResponse } from '@/types';
 
 export function TablePagination({ resource }: { resource: PaginatedResponse }) {
+    if (resource.last_page === 1) {
+        return (
+            <div className={ 'mt-4 text-center text-gray-500' }>
+                No Data
+            </div>
+        );
+    }
     return (
         <Pagination className='mt-4'>
             <PaginationContent>
