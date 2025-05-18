@@ -35,7 +35,7 @@ export interface Task {
 export interface CreateTaskForm {
     name: string;
     due_date?: string;
-    media?: string;
+    media?: File| null;
 }
 
 export interface EditTaskForm {
