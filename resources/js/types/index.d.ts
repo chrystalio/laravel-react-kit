@@ -35,7 +35,7 @@ export interface Task {
 export interface TaskCategory {
     id: number;
     name: string;
-    task_count: number | null;
+    tasks_count: number | null;
     tasks: Task[] | null;
     created_at: string;
     updated_at: string;
