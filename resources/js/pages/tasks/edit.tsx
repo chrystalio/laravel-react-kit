@@ -18,10 +18,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Edit({ task }: { task: Task }) {
     const taskName = useRef<HTMLInputElement>(null);
 
-    const {data, setData, errors, put, reset, processing } = useForm<Required<EditTaskForm>>({
+    const {data, setData, errors, put, reset, processing, progress } = useForm<Required<EditTaskForm>>({
         name: task.name,
         due_date: task.due_date,
         is_completed: task.is_completed,
+        media: null,
     });
 
     const editTask: FormEventHandler = (e) => {
@@ -58,6 +59,30 @@ export default function Edit({ task }: { task: Task }) {
                         <Switch checked={data.is_completed} onCheckedChange={() => setData('is_completed', !data.is_completed)} />
 
                         <InputError message={errors.is_completed} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="media">Media</Label>
+
+                        <Input id="media"type="file" className="mt-1 block w-full"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0] ?? null;
+                                    setData('media', file);
+                                }}
+                            />
+                            {progress && (
+                                <progress value={progress.percentage} max="100">
+                                    {progress.percentage}%
+                                </progress>
+                            )}
+
+                            <InputError message={errors.is_completed} />
+
+                            {!task.mediaFile ? '' : (
+                                <a href={task.mediaFile.original_url} target="_blank" className="my-4 mx-4">
+                                    <img src={task.mediaFile.original_url} className={'w-32 h-32 rounded-sm'} alt="img" />
+                                </a>
+                            )}
                     </div>
 
                     <div className="flex items-center gap-4">
