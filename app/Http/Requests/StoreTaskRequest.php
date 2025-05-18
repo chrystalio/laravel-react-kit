@@ -18,13 +18,14 @@ class StoreTaskRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, string|array>
      */
     public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
-            'due_date' => 'nullable|date'
+            'due_date' => 'nullable|date',
+            'media' => 'nullable|file|max:2048',
         ];
     }
 }
