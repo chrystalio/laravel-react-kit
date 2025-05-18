@@ -21,7 +21,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ taskCategories }: { taskCategories: PaginatedResponse<TaskCategory> }) {
     const deleteTaskCategory = (taskCategory: TaskCategory) => {
-        // TODO (for now)
+        if (taskCategory.tasks_count === 0) {
+            if (confirm('Are you sure you want to delete this task category?')) {
+                router.delete(route('task-categories.destroy', taskCategory.id));
+                toast.success('Task Category deleted successfully');
+            }
+        } else {
+            if (
+                confirm(
+                    'This category has tasks assigned to it. Are you sure you want to delete it? This will also delete all the tasks assigned to this category.',
+                )
+            ) {
+                router.delete(route('task-categories.destroy', taskCategory.id));
+                toast.success('Task Category deleted successfully');
+            }
+        }
     };
 
     return (
