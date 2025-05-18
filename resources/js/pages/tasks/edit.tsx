@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import InputError from "@/components/input-error";
+import { format } from "date-fns";
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -19,6 +20,7 @@ export default function Edit({ task }: { task: Task }) {
 
     const {data, setData, errors, put, reset, processing } = useForm<Required<EditTaskForm>>({
         name: task.name,
+        due_date: task.due_date,
         is_completed: task.is_completed,
     });
 
@@ -45,6 +47,11 @@ export default function Edit({ task }: { task: Task }) {
                         <Label htmlFor="name">Task Name</Label>
                         <Input id="name" ref={taskName} value={data.name} onChange={(e) => setData('name', e.target.value)}
                         className="mt-1 block w-full"/>
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="due_date">Due Date</Label>
+
+                        <Input id="due_date" value={data.due_date ? format(data.due_date, 'yyyy-MM-dd') : ''} onChange={(e) => setData('due_date', format(new Date(e.target.value), 'yyyy-MM-dd'))} className="mt-1 block w-full" type="date" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="is_completed">Completed?</Label>
