@@ -35,13 +35,14 @@ export interface Task {
 export interface CreateTaskForm {
     name: string;
     due_date?: string;
-    media?: File| null;
+    media?: File | null;
 }
 
 export interface EditTaskForm {
     name: string;
     is_completed: boolean;
     due_date?: string;
+    media?: File | null;
 }
 
 export interface SharedData {
