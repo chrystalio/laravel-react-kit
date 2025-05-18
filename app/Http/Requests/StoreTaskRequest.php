@@ -25,7 +25,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'due_date' => 'nullable|date',
-            'media' => 'nullable|file|max:2048',
+            'media' => 'nullable|file|max:2048|mimes:jpg,svg,png',
         ];
     }
 }
