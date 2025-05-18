@@ -33,6 +33,7 @@ export interface Task {
 
 export interface CreateTaskForm {
     name: string;
+    due_date?: string;
 }
 
 export interface EditTaskForm {
