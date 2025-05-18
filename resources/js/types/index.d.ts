@@ -39,6 +39,7 @@ export interface CreateTaskForm {
 export interface EditTaskForm {
     name: string;
     is_completed: boolean;
+    due_date?: string;
 }
 
 export interface SharedData {
