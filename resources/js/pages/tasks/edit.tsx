@@ -1,5 +1,5 @@
 import AppLayout from "@/layouts/app-layout";
-import { Head, useForm } from '@inertiajs/react'
+import { Head, router, useForm } from '@inertiajs/react'
 import { FormEventHandler, useRef } from "react";
 import { type EditTaskForm, type Task, type BreadcrumbItem } from "@/types";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Edit({ task }: { task: Task }) {
     const taskName = useRef<HTMLInputElement>(null);
 
-    const {data, setData, errors, put, reset, processing, progress } = useForm<Required<EditTaskForm>>({
+    const {data, setData, errors, reset, processing, progress } = useForm<Required<EditTaskForm>>({
         name: task.name,
         due_date: task.due_date,
         is_completed: task.is_completed,
@@ -28,16 +28,23 @@ export default function Edit({ task }: { task: Task }) {
     const editTask: FormEventHandler = (e) => {
         e.preventDefault();
 
-        put(route('tasks.update', task.id), {
-            preserveScroll: true,
-            onSuccess: () => reset(),
-            onError: (errors) => {
-                if (errors.name) {
-                    reset('name');
-                    taskName.current?.focus();
+        router.post(
+            route('tasks.update', task.id),
+            { ...data, _method: 'PUT'},
+            {
+                forceFormData: true,
+                preserveScroll: true,
+                onSuccess: () => {
+                    reset();
+                },
+                onError: (errors) => {
+                    if (errors.name) {
+                        reset('name');
+                        taskName.current?.focus();
+                    }
                 }
-            },
-        });
+            }
+        )
     };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
