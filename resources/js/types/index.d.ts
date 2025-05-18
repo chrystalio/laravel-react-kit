@@ -32,6 +32,15 @@ export interface Task {
     updated_at: string;
 }
 
+export interface TaskCategory {
+    id: number;
+    name: string;
+    task_count: number | null;
+    tasks: Task[] | null;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface CreateTaskForm {
     name: string;
     due_date?: string;
@@ -66,7 +75,7 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-export interface PaginatedResponse<T = Task | null> {
+export interface PaginatedResponse<T = Task | TaskCategory | null> {
     current_page: number;
     data: T[];
     first_page_url: string;
