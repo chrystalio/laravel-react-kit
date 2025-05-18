@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Database\Factories\TaskFactory;
-use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model implements HasMedia
 {
@@ -31,6 +31,11 @@ class Task extends Model implements HasMedia
             'is_completed' => 'boolean',
             'due_date' => 'date'
         ];
+    }
+
+    public function taskCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(TaskCategory::class);
     }
 
     public function getMediaFileAttribute() {
