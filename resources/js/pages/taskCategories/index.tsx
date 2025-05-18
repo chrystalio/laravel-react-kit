@@ -41,7 +41,7 @@ export default function Index({ taskCategories }: { taskCategories: PaginatedRes
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Category List" />
-            <div className={'mt-8'}>
+            <div className={'mt-8 mx-4'}>
                 <div className={'flex flex-row gap-x-4'}>
                     <Link className={buttonVariants({ variant: 'default' })} href="/task-categories/create">
                         Create Category
