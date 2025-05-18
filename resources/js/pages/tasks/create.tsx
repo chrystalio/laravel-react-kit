@@ -18,9 +18,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Create() {
     const taskName = useRef<HTMLInputElement>(null);
 
-    const {data, setData, errors, post, reset, processing } = useForm<Required<CreateTaskForm>>({
+    const {data, setData, errors, post, reset, processing, progress } = useForm<Required<CreateTaskForm>>({
         name: '',
         due_date: '',
+        media: null,
     })
 
     const createTask: FormEventHandler = (e) => {
@@ -54,7 +55,7 @@ export default function Create() {
 
                         <InputError message={errors.name} />
                     </div>
-                    <div className="grid-gap-2">
+                    <div className="grid gap-2">
                         <Label htmlFor="due_date">Due Date</Label>
 
                         <Input id="due_date" value={data.due_date} onChange={(e) => setData(
@@ -63,6 +64,23 @@ export default function Create() {
                             className="mt-1 block w-full" type="date" />
 
                         <InputError message={errors.due_date} />
+                    </div>
+
+                    <div className="grid gap-2">
+                            <Label htmlFor="media">Media</Label>
+                            <Input id="media"type="file" className="mt-1 block w-full"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0] ?? null;
+                                    setData('media', file);
+                                }}
+                            />
+                            {progress && (
+                                <progress value={progress.percentage} max="100">
+                                    {progress.percentage}%
+                                </progress>
+                            )}
+
+                            <InputError message={errors.media} />
                     </div>
 
                     <div className="flex items-center gap-4">
