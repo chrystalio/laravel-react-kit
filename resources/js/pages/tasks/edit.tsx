@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Edit({ task }: { task: Task }) {
     const taskName = useRef<HTMLInputElement>(null);
 
-    const {data, setData, errors, reset, processing, progress } = useForm<Required<EditTaskForm>>({
+    const {data, setData, errors, reset, processing, progress } = useForm<EditTaskForm>({
         name: task.name,
         due_date: task.due_date,
         is_completed: task.is_completed,
