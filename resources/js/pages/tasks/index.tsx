@@ -3,6 +3,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { Button, buttonVariants } from "@/components/ui/button";
 import { TablePagination } from '@/components/table-pagination';
 import { toast } from 'sonner';
+import { format } from 'date-fns';
 import {
     Table,
     TableBody,
@@ -38,7 +39,8 @@ export default function Index({tasks}: { tasks: PaginatedResponse<Task> }){
                     <TableHeader>
                         <TableRow>
                             <TableHead>Task</TableHead>
-                            <TableHead className="w-[100px]">Status</TableHead>
+                            <TableHead className="w-[150px]">Due Date</TableHead>
+                            <TableHead className="w-[150px]">Status</TableHead>
                             <TableHead className="w-[150px] text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -46,6 +48,9 @@ export default function Index({tasks}: { tasks: PaginatedResponse<Task> }){
                         {tasks.data.map((task: Task) =>(
                             <TableRow key={task.id}>
                                 <TableCell>{task.name}</TableCell>
+                                <TableCell>
+                                    {task.due_date ? format(task.due_date, 'PPP') : '-'}
+                                </TableCell>
                                 <TableCell className={task.is_completed ? 'text-green-600' : 'text-red-700'}>
                                     {task.is_completed ? 'Completed' : 'In Progress'}
                                 </TableCell>
