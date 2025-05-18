@@ -19,6 +19,7 @@ export default function Create() {
 
     const {data, setData, errors, post, reset, processing } = useForm<Required<CreateTaskForm>>({
         name: '',
+        due_date: '',
     })
 
     const createTask: FormEventHandler = (e) => {
