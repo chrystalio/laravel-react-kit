@@ -27,6 +27,7 @@ export interface Task {
     name: string;
     is_completed: boolean;
     due_date?: string;
+    mediaFile?: MediaFile;
     created_at: string;
     updated_at: string;
 }
@@ -34,6 +35,7 @@ export interface Task {
 export interface CreateTaskForm {
     name: string;
     due_date?: string;
+    media?: string;
 }
 
 export interface EditTaskForm {
