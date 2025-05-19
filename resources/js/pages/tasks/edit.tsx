@@ -1,11 +1,12 @@
 import AppLayout from "@/layouts/app-layout";
 import { Head, router, useForm } from '@inertiajs/react'
 import { FormEventHandler, useRef } from "react";
-import { type EditTaskForm, type Task, type BreadcrumbItem } from "@/types";
+import { type EditTaskForm, type Task, type BreadcrumbItem, type TaskCategory } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import InputError from "@/components/input-error";
 import { format } from "date-fns";
 
@@ -15,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Edit', href: ' ' }
 ]
 
-export default function Edit({ task }: { task: Task }) {
+export default function Edit({ task, categories }: { task: Task, categories: TaskCategory[] }) {
     const taskName = useRef<HTMLInputElement>(null);
 
     const {data, setData, errors, reset, processing, progress } = useForm<EditTaskForm>({
@@ -23,6 +24,7 @@ export default function Edit({ task }: { task: Task }) {
         due_date: task.due_date,
         is_completed: task.is_completed,
         media: null,
+        categories: task.task_categories.map((category) => category.id.toString()),
     });
 
     const editTask: FormEventHandler = (e) => {
@@ -90,6 +92,21 @@ export default function Edit({ task }: { task: Task }) {
                                     <img src={task.mediaFile.original_url} className={'w-32 h-32 rounded-sm'} alt="img" />
                                 </a>
                             )}
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="category">Categories</Label>
+
+                        <ToggleGroup type="multiple" variant={'outline'} size={'lg'} value={data.categories}
+                                    onValueChange={(value) => setData('categories', value)}>
+                            {categories.map((category) => (
+                                <ToggleGroupItem key={category.id} value={category.id.toString()}>
+                                     <span className="px-2 text-sm leading-relaxed">{category.name}</span>
+                                </ToggleGroupItem>
+                            ))}
+                        </ToggleGroup>
+
+                        <InputError message={errors.due_date} />
                     </div>
 
                     <div className="flex items-center gap-4">
