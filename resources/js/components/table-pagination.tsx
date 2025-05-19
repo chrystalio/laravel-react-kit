@@ -3,7 +3,7 @@ import { generatePaginationLinks } from '@/lib/generate-pagination-links';
 import { type PaginatedResponse } from '@/types';
 
 export function TablePagination({ resource }: { resource: PaginatedResponse }) {
-    if (resource.last_page === 1) {
+    if (resource.total === 0) {
         return (
             <div className={ 'mt-4 text-center text-gray-500' }>
                 No Data
