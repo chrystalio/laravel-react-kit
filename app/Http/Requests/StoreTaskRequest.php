@@ -26,6 +26,8 @@ class StoreTaskRequest extends FormRequest
             'name' => 'required|string|max:255',
             'due_date' => 'nullable|date',
             'media' => 'nullable|file|max:2048|mimes:jpg,svg,png',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:task_categories,id'
         ];
     }
 }
