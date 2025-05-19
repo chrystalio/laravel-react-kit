@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { format } from 'date-fns';
-import { type CreateTaskForm, type BreadcrumbItem } from '@/types';
+import { type CreateTaskForm, type BreadcrumbItem, type TaskCategory } from '@/types';
 
 import { FormEventHandler, useRef } from 'react';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -15,13 +16,14 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Create', href: ' ' }
 ]
 
-export default function Create() {
+export default function Create({ categories }: { categories: TaskCategory[] }) {
     const taskName = useRef<HTMLInputElement>(null);
 
     const {data, setData, errors, post, reset, processing, progress } = useForm<Required<CreateTaskForm>>({
         name: '',
         due_date: '',
         media: null,
+        categories: []
     })
 
     const createTask: FormEventHandler = (e) => {
@@ -81,6 +83,19 @@ export default function Create() {
                             )}
 
                             <InputError message={errors.media} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="category">Categories</Label>
+                            <ToggleGroup type="multiple" variant={'outline'} size={'lg'} value={data.categories}        onValueChange={(value) => setData('categories', value)}>
+                                {categories.map((category) => (
+                                    <ToggleGroupItem key={category.id} value={category.id.toString()}>
+                                          <span className="px-2 text-sm leading-relaxed">{category.name}</span>
+                                    </ToggleGroupItem>
+                                ))}
+                            </ToggleGroup>
+
+                            <InputError message={errors.categories} />
                     </div>
 
                     <div className="flex items-center gap-4">
