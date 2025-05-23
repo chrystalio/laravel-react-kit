@@ -27,7 +27,7 @@ class TaskController extends Controller
                     $query->whereIn('id', $request->query('categories'));
                 });
             })
-            ->paginate(20)
+            ->paginate(10)
             ->withQueryString(),
         'categories' => TaskCategory::whereHas('tasks')->withCount('tasks')->get(),
         'selectedCategories' => $request->query('categories'),
@@ -100,6 +100,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task): RedirectResponse
     {
+
+        $task->taskCategories()->detach();
         $task->delete();
 
         return redirect()->route('tasks.index');
