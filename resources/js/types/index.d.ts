@@ -58,6 +58,18 @@ export interface EditTaskForm {
     categories?: string[];
 }
 
+export interface TaskChartData {
+    status: string;
+    count: number;
+    fill: string;
+}
+
+export interface StatCardProps {
+    title: string;
+    value: number;
+    icon?: React.ReactNode;
+};
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
